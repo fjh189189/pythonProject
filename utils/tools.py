@@ -1,4 +1,5 @@
 from terminaltables import AsciiTable
+import pandas as pd
 
 
 def print_info(cfg):
@@ -33,3 +34,6 @@ def print_train_val_info(train_lose,val_lose,train_acc,val_acc):
     print()
     print(table_instance.table)
     print()
+def save_csv(meta):
+    meta_df = pd.DataFrame(meta)
+    meta_df.to_csv('work_dir/meta.csv',index=0)

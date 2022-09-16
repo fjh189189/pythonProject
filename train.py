@@ -4,7 +4,7 @@ import torchvision
 import importlib
 from torch.utils.data import DataLoader
 from utils import MyDateset
-from utils.tools import print_info,print_train_val_info
+from utils.tools import print_info,print_train_val_info,save_csv
 from tqdm import  tqdm
 
 def parse_opt():
@@ -41,6 +41,11 @@ elif cfg['optim'] == 'Adam':
 print_info(cfg)
 epoch = 0
 epochs = cfg['epochs']
+meta = {'train_lose':[],
+        'val_lose':[],
+        'train_acc':[],
+        'val_acc':[]
+        }
 for i in range(epochs):
 
     train_lose = 0.0
@@ -66,7 +71,10 @@ for i in range(epochs):
             lose.backward()
             optimizer.step()
             # print(f'训练第{idx}iter轮损失值为{train_lose}。。。。。。。。。。。。。。')
+            pbar.update(1)
     train_acc = round((train_true_num / train_total_num)*100,2)
+    meta['train_lose'].append(train_lose)
+    meta['train_acc'].append(train_acc)
     model.eval()
     with torch.no_grad():
         with tqdm(total=len(val_loader), desc=f'Valid: Epoch {epoch + 1}/{epochs}', postfix=dict,
@@ -80,12 +88,80 @@ for i in range(epochs):
                 lose = lose_function(output, target)
                 val_lose += lose.item()
                 val_true_num += (output.argmax(1) == target).sum().cpu().item()
+                pbar.update(1)
         val_acc = round((val_true_num / val_total_num)*100,2)
+        meta['val_lose'].append(val_lose)
+        meta['val_acc'].append(val_acc)
         # print(f'验证第{i}轮损失值为{val_lose}。。。。。。。。。。。。。。')
         # print(f'验证第{i}轮准确率为{accuracy_rate}。。。。。。。。。。。。。。')
     epoch+=1
-
+    save_csv(meta)
     print_train_val_info(train_lose,val_lose,train_acc,val_acc)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

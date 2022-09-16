@@ -5,7 +5,7 @@ cfg = {
     'dataset_type':'MyDataSet',
     "label2idx":{"ants":0,"bees":1},
     "root_path":"hymenoptera_data",
-    'epochs':20,
+    'epochs':1,
     'model':AlexNet(10),
     'lose_function':nn.CrossEntropyLoss(),
     # 'cls_num' : 10,
