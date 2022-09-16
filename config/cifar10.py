@@ -2,6 +2,7 @@ from torchvision import transforms
 from utils import *
 
 cfg = {
+    'dataset_type':'CIFAR10',
     'epochs':50,
     'model':CIFAR10Model(10),
     'lose_function':nn.CrossEntropyLoss(),

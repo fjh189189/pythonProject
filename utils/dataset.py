@@ -6,10 +6,9 @@ from PIL import Image
 from torch.utils.data import Dataset
 from cfg import cfg
 class MyDateset(Dataset):
-
-    def __init__(self,train=True):
+    def __init__(self,cfg,train=True):
         # json_file = 'cfg.json'
-        # with open(json_file, 'r', encoding='utf-8') as f:
+         # with open(json_file, 'r', encoding='utf-8') as f:
         #     j = json.load(f)
         root_path = cfg['root_path']
         label2idx = cfg['label2idx']
