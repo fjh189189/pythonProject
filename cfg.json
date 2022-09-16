@@ -1,0 +1,5 @@
+{
+    "label2idx":{"ants":0,"bees":1},
+    "root_path":"hymenoptera_data",
+    "trans":[eval('transforms.ToTensor()'),]
+}
